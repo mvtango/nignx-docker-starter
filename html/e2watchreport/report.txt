@@ -1,0 +1,1 @@
+{"ssml": "Der Wasserz\u00e4hler steht auf 2510,213. Der Verbrauch betr\u00e4gt 132,47."}

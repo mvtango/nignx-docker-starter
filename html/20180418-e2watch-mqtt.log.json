@@ -1,0 +1,33 @@
+test "mqtt-test-network" = "$(docker network ls --filter name=mqtt-test-network --format '{{.Name}}')" || docker network create mqtt-test-network
+mkdir -p /home/ubuntu/mqtt/mqtt-mosquitto ;\
+test "mosquitto" = "$(docker ps --filter name='mosquitto' --format '{{.Names}}')" || \
+docker run --restart=unless-stopped -d --name 'mosquitto' \
+       --network=mqtt-test-network --network-alias='mosquitto' \
+	   --volume /home/ubuntu/mqtt/mqtt-mosquitto:/mqtt/data/ \
+-p 1883:1883 -p 9001:9001 toke/mosquitto
+echo MONITOR := 'cat - ' ;\
+docker run --rm --network=mqtt-test-network -it --name=monitor mqtttool 'mqttcat mqtt://mosquitto/%23 | cat - '
+MONITOR := cat - 
+2018-04-18 13:29:57,615 mqttcat.cli INFO cli.py:129 Subscribed to mqtt://mosquitto/%23 - messages will be written to <AppendToFile <_io.TextIOWrapper name='<stdout>' mode='w' encoding='UTF-8'>>
+{"qos": 0, "topic": "heartbeat", "payload": "tock", "timestamp": 29223.570877832}
+{"qos": 0, "topic": "e2watch/smartorchestra/hackathon", "payload": "{\"Wasser\": {\"bn\":12,\"v\":2499.300048828125,\"u\":\"m\u00b3\",\"t\":1521395100000,\"n\":\"Wasser\",\"on\":\"Sporthalle Elmar Harren\"}}", "timestamp": 29223.66929629}
+{"qos": 0, "topic": "heartbeat", "payload": "tick", "timestamp": 29224.575318594}
+{"qos": 0, "topic": "e2watch/smartorchestra/hackathon", "payload": "{\"Wasser\": {\"bn\":12,\"v\":2499.340087890625,\"u\":\"m\u00b3\",\"t\":1521396000000,\"n\":\"Wasser\",\"on\":\"Sporthalle Elmar Harren\"}}", "timestamp": 29224.725374059}
+{"qos": 0, "topic": "heartbeat", "payload": "tock", "timestamp": 29225.573530485}
+{"qos": 0, "topic": "e2watch/smartorchestra/hackathon", "payload": "{\"Wasser\": {\"bn\":12,\"v\":2499.3701171875,\"u\":\"m\u00b3\",\"t\":1521396900000,\"n\":\"Wasser\",\"on\":\"Sporthalle Elmar Harren\"}}", "timestamp": 29225.780043104}
+{"qos": 0, "topic": "heartbeat", "payload": "tick", "timestamp": 29226.574988431}
+{"qos": 0, "topic": "e2watch/smartorchestra/hackathon", "payload": "{\"Wasser\": {\"bn\":12,\"v\":2499.429931640625,\"u\":\"m\u00b3\",\"t\":1521397800000,\"n\":\"Wasser\",\"on\":\"Sporthalle Elmar Harren\"}}", "timestamp": 29226.837415896}
+{"qos": 0, "topic": "heartbeat", "payload": "tock", "timestamp": 29227.628444944}
+{"qos": 0, "topic": "e2watch/smartorchestra/hackathon", "payload": "{\"Wasser\": {\"bn\":12,\"v\":2499.679931640625,\"u\":\"m\u00b3\",\"t\":1521398700000,\"n\":\"Wasser\",\"on\":\"Sporthalle Elmar Harren\"}}", "timestamp": 29227.889417884}
+{"qos": 0, "topic": "heartbeat", "payload": "tick", "timestamp": 29228.584244119}
+{"qos": 0, "topic": "e2watch/smartorchestra/hackathon", "payload": "{\"Wasser\": {\"bn\":12,\"v\":2499.719970703125,\"u\":\"m\u00b3\",\"t\":1521399600000,\"n\":\"Wasser\",\"on\":\"Sporthalle Elmar Harren\"}}", "timestamp": 29228.94422157}
+{"qos": 0, "topic": "heartbeat", "payload": "tock", "timestamp": 29229.67198548}
+{"qos": 0, "topic": "e2watch/smartorchestra/hackathon", "payload": "{\"Wasser\": {\"bn\":12,\"v\":2499.75,\"u\":\"m\u00b3\",\"t\":1521400500000,\"n\":\"Wasser\",\"on\":\"Sporthalle Elmar Harren\"}}", "timestamp": 29230.009420256}
+{"qos": 0, "topic": "heartbeat", "payload": "tick", "timestamp": 29230.724191442}
+{"qos": 0, "topic": "e2watch/smartorchestra/hackathon", "payload": "{\"Wasser\": {\"bn\":12,\"v\":2499.7900390625,\"u\":\"m\u00b3\",\"t\":1521401400000,\"n\":\"Wasser\",\"on\":\"Sporthalle Elmar Harren\"}}", "timestamp": 29231.064169137}
+{"qos": 0, "topic": "heartbeat", "payload": "tock", "timestamp": 29231.579690489}
+{"qos": 0, "topic": "e2watch/smartorchestra/hackathon", "payload": "{\"Wasser\": {\"bn\":12,\"v\":2499.81005859375,\"u\":\"m\u00b3\",\"t\":1521402300000,\"n\":\"Wasser\",\"on\":\"Sporthalle Elmar Harren\"}}", "timestamp": 29232.116824617}
+{"qos": 0, "topic": "heartbeat", "payload": "tick", "timestamp": 29232.582538328}
+{"qos": 0, "topic": "e2watch/smartorchestra/hackathon", "payload": "{\"Wasser\": {\"bn\":12,\"v\":2499.830078125,\"u\":\"m\u00b3\",\"t\":1521403200000,\"n\":\"Wasser\",\"on\":\"Sporthalle Elmar Harren\"}}", "timestamp": 29233.16732301}
+{"qos": 0, "topic": "heartbeat", "payload": "tock", "timestamp": 29233.585986246}
+^CMakefile:24: recipe for target 'monitor' failed
